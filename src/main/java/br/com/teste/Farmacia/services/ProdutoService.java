@@ -31,5 +31,10 @@ public class ProdutoService {
 		consultaPorId(produto.getId());
 		return produtoRepo.save(produto);
 	}
+	
+	public void delete(Integer id) {
+		consultaPorId(id);
+		produtoRepo.deleteById(id);
+	}
 
 }

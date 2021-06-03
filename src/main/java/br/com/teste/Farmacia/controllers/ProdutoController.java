@@ -1,6 +1,5 @@
 package br.com.teste.Farmacia.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +42,10 @@ public class ProdutoController {
 		produto = produtoService.alterarProduto(produto);
 		return produto;
 	}
-
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	public void deletarProduto(@PathVariable Integer id) {
+		produtoService.delete(id);
+	}
+ 
 }
