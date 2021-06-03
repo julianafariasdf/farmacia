@@ -22,23 +22,25 @@ public class ProdutoController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Produto> findAll(){
-		
-		List<Produto> produtos = produtoService.consultarTodos();
-		
+		List<Produto> produtos = produtoService.consultarTodos();		
 		return produtos;
 	}
 	
 	@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	public Produto findById(@PathVariable Integer id) {
-		
-		Produto produto = produtoService.consultaPorId(id);		
-		
-		return produto;
+	public Produto consultarPorId(@PathVariable Integer id) {		
+		return produtoService.consultaPorId(id);			
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public Produto salvarProduto(@RequestBody Produto produto) {
 		produto = produtoService.salvarProduto(produto);
+		return produto;
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public Produto alterarProduto(@RequestBody Produto produto, @PathVariable Integer id) {
+		produto.setId(id);
+		produto = produtoService.alterarProduto(produto);
 		return produto;
 	}
 

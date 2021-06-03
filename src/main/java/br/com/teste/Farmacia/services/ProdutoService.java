@@ -15,7 +15,7 @@ public class ProdutoService {
 	private ProdutoRepository produtoRepo;
 	
 	public Produto consultaPorId(Integer id) {
-		return produtoRepo.getById(id);
+		return produtoRepo.findById(id).get();
 	}
 	
 	public List<Produto> consultarTodos(){
@@ -25,6 +25,11 @@ public class ProdutoService {
 	public Produto salvarProduto(Produto obj) {
 		obj.setId(null); //Para garantir que o id do Objeto seja nulo.
 		return produtoRepo.save(obj);
+	}
+	
+	public Produto alterarProduto(Produto produto) {
+		consultaPorId(produto.getId());
+		return produtoRepo.save(produto);
 	}
 
 }
