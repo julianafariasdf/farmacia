@@ -3,6 +3,8 @@ package br.com.teste.Farmacia.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,34 +20,40 @@ public class ProdutoController {
 	
 	@Autowired
 	private ProdutoService produtoService;
-	
+
+	//Consultar todos os produtos
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Produto> findAll(){
-		List<Produto> produtos = produtoService.consultarTodos();		
-		return produtos;
+	public ResponseEntity<List<Produto>> findAll(){
+		List<Produto> produtos = produtoService.consultarTodos();
+		return ResponseEntity.ok().body(produtos);
 	}
-	
-	@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	public Produto consultarPorId(@PathVariable Integer id) {		
-		return produtoService.consultaPorId(id);			
+
+	//Consultar produtos por Id
+	@RequestMapping(value="/consultar/id={id}",method = RequestMethod.GET)
+	public ResponseEntity<Produto> consultarPorId(@PathVariable Integer id) {
+		Produto produto = produtoService.consultaPorId(id);
+		return ResponseEntity.ok().body(produto);
 	}
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public Produto salvarProduto(@RequestBody Produto produto) {
+
+	//Salvar cadastro produto
+	@RequestMapping(value="/salvar", method = RequestMethod.POST)
+	public ResponseEntity<Produto> salvarProduto(@RequestBody Produto produto) {
 		produto = produtoService.salvarProduto(produto);
-		return produto;
+		return ResponseEntity.ok().body(produto);
 	}
-	
-	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
-	public Produto alterarProduto(@RequestBody Produto produto, @PathVariable Integer id) {
+
+	//Alterar produto por id
+	@RequestMapping(value="/alterar/id={id}", method = RequestMethod.PUT)
+	public ResponseEntity<Produto> alterarProduto(@RequestBody Produto produto, @PathVariable Integer id) {
 		produto.setId(id);
 		produto = produtoService.alterarProduto(produto);
-		return produto;
+		return ResponseEntity.ok().body(produto);
 	}
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
-	public void deletarProduto(@PathVariable Integer id) {
+	@RequestMapping(value="/excluir/id={id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deletarProduto(@PathVariable Integer id) {
 		produtoService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
  
 }

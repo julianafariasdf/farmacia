@@ -39,4 +39,10 @@ public class VendaService {
 		vendaRepo.deleteById(id);
 	}
 
+	public Venda consultarPorCliente(Integer id){
+		Venda venda = new Venda();
+		venda.getCliente().getId();
+		return vendaRepo.findById(venda.getCliente().getId()).get();
+	}
+
 }
