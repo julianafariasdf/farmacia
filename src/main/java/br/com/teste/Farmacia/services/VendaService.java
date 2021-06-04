@@ -15,6 +15,9 @@ public class VendaService {
 	
 	@Autowired
 	private VendaRepository vendaRepo;
+
+	@Autowired
+	private ClienteRepository clienteRepo;
 	
 	public Venda consultaPorId(Integer id) {
 		return vendaRepo.findById(id).get();
@@ -39,10 +42,9 @@ public class VendaService {
 		vendaRepo.deleteById(id);
 	}
 
-	public Venda consultarPorCliente(Integer id){
-		Venda venda = new Venda();
-		venda.getCliente().getId();
-		return vendaRepo.findById(venda.getCliente().getId()).get();
+	public List<Venda> consultarPorCliente(Cliente id) {
+		List<Venda> vendas = vendaRepo.consultarPorCliente(id);
+		return vendas;
 	}
 
 }
