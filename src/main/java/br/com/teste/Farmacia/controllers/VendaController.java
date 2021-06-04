@@ -58,7 +58,7 @@ public class VendaController {
 	}
 
 	//Excluir Vendas por Id
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/excluir/id={id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletarVenda(@PathVariable Integer id) {
 		vendaService.delete(id);
 		return ResponseEntity.noContent().build();
